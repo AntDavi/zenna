@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "./ui/sidebar";
 import { TrendingUp, PieChart, Settings } from "lucide-react";
 import Image from "next/image";
-import { DialogTransaction } from "./DialogAddTransaction";
+import { DialogAddTransaction } from "./DialogAddTransaction";
 
 const menuItems = [
     { title: "Dashboard", href: "/dashboard", icon: PieChart },
@@ -86,12 +86,12 @@ export function AppSidebar() {
                         {!collapsed && "Ações Rápidas"}
                     </SidebarGroupLabel>
                     <SidebarGroupContent>
-                        <SidebarMenu className="space-y-2">
+                        <SidebarMenu className="space-y-2 w-full">
                             <SidebarMenuItem>
-                                <DialogTransaction type="income" />
+                                <DialogAddTransaction type="income" />
                             </SidebarMenuItem>
                             <SidebarMenuItem>
-                                <DialogTransaction type="expense" />
+                                <DialogAddTransaction type="expense" />
                             </SidebarMenuItem>
                         </SidebarMenu>
                     </SidebarGroupContent>

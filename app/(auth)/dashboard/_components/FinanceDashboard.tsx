@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { DateFilter } from "./DateFilter";
 import { FinancialChartPie } from "./FinancialChartPie";
+import { FinancialChartBars } from "./FinancialChartBars";
+import { TransactionsHistoric } from "@/app/_components/TransactionsHistoric";
 
 export type DateFilterType = "today" | "week" | "month" | "custom";
 export interface DateRange {
@@ -18,8 +20,11 @@ export function FinanceDashboard() {
                 dateFilter={dateFilter}
                 setDateFilter={setDateFilter}
             />
-
-            <FinancialChartPie />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <FinancialChartPie />
+                <FinancialChartBars />
+            </div>
+            <TransactionsHistoric />
         </div>
     );
 }

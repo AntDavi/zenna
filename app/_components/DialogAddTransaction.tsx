@@ -44,7 +44,7 @@ const mockCategories = {
     ],
 };
 
-export function DialogTransaction({ type, trigger }: DialogTransactionProps) {
+export function DialogAddTransaction({ type, trigger }: DialogTransactionProps) {
     const [open, setOpen] = useState(false);
     const [form, setForm] = useState<TransactionForm>({
         amount: '',
@@ -108,14 +108,12 @@ export function DialogTransaction({ type, trigger }: DialogTransactionProps) {
 
     const defaultTrigger = (
         <Button
-            className={`
-        transition-all duration-300 ease-in-out rounded-lg group w-full flex justify-start cursor-pointer
-        ${isIncome
+            className={`transition-all duration-300 ease-in-out rounded-lg w-max flex justify-start cursor-pointer
+                ${isIncome
                     ? 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300 border border-green-200 dark:border-green-800 hover:bg-green-100 dark:hover:bg-green-900/40 hover:border-green-300 dark:hover:border-green-600  hover:shadow-md'
                     : 'bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800 hover:bg-red-100 dark:hover:bg-red-900/40 hover:border-red-300 dark:hover:border-red-600  hover:shadow-md'
                 }
-        px-3 py-2.5 font-medium
-        `}
+        px-3 py-2.5 font-medium`}
         >
             {isIncome ? (
                 <Plus className="w-4 h-4 mr-2 text-green-600 dark:text-green-400 group-hover:text-green-700 dark:group-hover:text-green-300" />

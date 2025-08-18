@@ -45,133 +45,132 @@ export function FinancialChartPie() {
     }, [])
 
     return (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            <div className="space-y-6">
 
-                {/* Receita */}
-                <Card className="bg-gradient-card shadow-md border">
-                    <CardHeader>
-                        <CardTitle className="text-lg font-semibold text-card-foreground flex items-center gap-2">
-                            <div className="p-2 bg-income-light rounded-lg">
-                                <PieChartIcon className="w-5 h-5 text-income" />
-                            </div>
-                            Receitas por Categoria
-                        </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <ChartContainer
-                            config={chartConfig}
-                            className="mx-auto aspect-square max-h-[250px]"
-                        >
-                            <PieChart>
-                                <ChartTooltip
-                                    cursor={false}
-                                    content={<ChartTooltipContent hideLabel />}
-                                />
-                                <Pie
-                                    data={chartData}
-                                    dataKey="visitors"
-                                    nameKey="browser"
-                                    innerRadius={60}
-                                    strokeWidth={5}
-                                >
-                                    <Label
-                                        content={({ viewBox }) => {
-                                            if (viewBox && "cx" in viewBox && "cy" in viewBox) {
-                                                return (
-                                                    <text
+        <div className="space-y-6">
+
+            {/* Receita */}
+            <Card className="bg-gradient-card shadow-md border">
+                <CardHeader>
+                    <CardTitle className="text-lg font-semibold text-card-foreground flex items-center gap-2">
+                        <div className="p-2 bg-income-light rounded-lg">
+                            <PieChartIcon className="w-5 h-5 text-income" />
+                        </div>
+                        Receitas por Categoria
+                    </CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <ChartContainer
+                        config={chartConfig}
+                        className="mx-auto aspect-square max-h-[250px]"
+                    >
+                        <PieChart>
+                            <ChartTooltip
+                                cursor={false}
+                                content={<ChartTooltipContent hideLabel />}
+                            />
+                            <Pie
+                                data={chartData}
+                                dataKey="visitors"
+                                nameKey="browser"
+                                innerRadius={60}
+                                strokeWidth={5}
+                            >
+                                <Label
+                                    content={({ viewBox }) => {
+                                        if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+                                            return (
+                                                <text
+                                                    x={viewBox.cx}
+                                                    y={viewBox.cy}
+                                                    textAnchor="middle"
+                                                    dominantBaseline="middle"
+                                                >
+                                                    <tspan
                                                         x={viewBox.cx}
                                                         y={viewBox.cy}
-                                                        textAnchor="middle"
-                                                        dominantBaseline="middle"
+                                                        className="fill-foreground text-3xl font-bold"
                                                     >
-                                                        <tspan
-                                                            x={viewBox.cx}
-                                                            y={viewBox.cy}
-                                                            className="fill-foreground text-3xl font-bold"
-                                                        >
-                                                            {totalVisitors.toLocaleString()}
-                                                        </tspan>
-                                                        <tspan
-                                                            x={viewBox.cx}
-                                                            y={(viewBox.cy || 0) + 24}
-                                                            className="fill-muted-foreground"
-                                                        >
-                                                            R$
-                                                        </tspan>
-                                                    </text>
-                                                )
-                                            }
-                                        }}
-                                    />
-                                </Pie>
-                            </PieChart>
-                        </ChartContainer>
-                    </CardContent>
-                </Card>
-
-                {/* Despesa */}
-                <Card className="bg-gradient-card shadow-md border">
-                    <CardHeader>
-                        <CardTitle className="text-lg font-semibold text-card-foreground flex items-center gap-2">
-                            <div className="p-2 bg-expense-light rounded-lg">
-                                <PieChartIcon className="w-5 h-5 text-expense" />
-                            </div>
-                            Despesas por Categoria
-                        </CardTitle>
-                    </CardHeader>
-                    <CardContent>
-                        <ChartContainer
-                            config={chartConfig}
-                            className="mx-auto aspect-square max-h-[250px]"
-                        >
-                            <PieChart>
-                                <ChartTooltip
-                                    cursor={false}
-                                    content={<ChartTooltipContent hideLabel />}
+                                                        {totalVisitors.toLocaleString()}
+                                                    </tspan>
+                                                    <tspan
+                                                        x={viewBox.cx}
+                                                        y={(viewBox.cy || 0) + 24}
+                                                        className="fill-muted-foreground"
+                                                    >
+                                                        R$
+                                                    </tspan>
+                                                </text>
+                                            )
+                                        }
+                                    }}
                                 />
-                                <Pie
-                                    data={chartData}
-                                    dataKey="visitors"
-                                    nameKey="browser"
-                                    innerRadius={60}
-                                    strokeWidth={5}
-                                >
-                                    <Label
-                                        content={({ viewBox }) => {
-                                            if (viewBox && "cx" in viewBox && "cy" in viewBox) {
-                                                return (
-                                                    <text
+                            </Pie>
+                        </PieChart>
+                    </ChartContainer>
+                </CardContent>
+            </Card>
+
+            {/* Despesa */}
+            <Card className="bg-gradient-card shadow-md border">
+                <CardHeader>
+                    <CardTitle className="text-lg font-semibold text-card-foreground flex items-center gap-2">
+                        <div className="p-2 bg-expense-light rounded-lg">
+                            <PieChartIcon className="w-5 h-5 text-expense" />
+                        </div>
+                        Despesas por Categoria
+                    </CardTitle>
+                </CardHeader>
+                <CardContent>
+                    <ChartContainer
+                        config={chartConfig}
+                        className="mx-auto aspect-square max-h-[250px]"
+                    >
+                        <PieChart>
+                            <ChartTooltip
+                                cursor={false}
+                                content={<ChartTooltipContent hideLabel />}
+                            />
+                            <Pie
+                                data={chartData}
+                                dataKey="visitors"
+                                nameKey="browser"
+                                innerRadius={60}
+                                strokeWidth={5}
+                            >
+                                <Label
+                                    content={({ viewBox }) => {
+                                        if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+                                            return (
+                                                <text
+                                                    x={viewBox.cx}
+                                                    y={viewBox.cy}
+                                                    textAnchor="middle"
+                                                    dominantBaseline="middle"
+                                                >
+                                                    <tspan
                                                         x={viewBox.cx}
                                                         y={viewBox.cy}
-                                                        textAnchor="middle"
-                                                        dominantBaseline="middle"
+                                                        className="fill-foreground text-3xl font-bold"
                                                     >
-                                                        <tspan
-                                                            x={viewBox.cx}
-                                                            y={viewBox.cy}
-                                                            className="fill-foreground text-3xl font-bold"
-                                                        >
-                                                            {totalVisitors.toLocaleString()}
-                                                        </tspan>
-                                                        <tspan
-                                                            x={viewBox.cx}
-                                                            y={(viewBox.cy || 0) + 24}
-                                                            className="fill-muted-foreground"
-                                                        >
-                                                            R$
-                                                        </tspan>
-                                                    </text>
-                                                )
-                                            }
-                                        }}
-                                    />
-                                </Pie>
-                            </PieChart>
-                        </ChartContainer>
-                    </CardContent>
-                </Card>
-            </div>
+                                                        {totalVisitors.toLocaleString()}
+                                                    </tspan>
+                                                    <tspan
+                                                        x={viewBox.cx}
+                                                        y={(viewBox.cy || 0) + 24}
+                                                        className="fill-muted-foreground"
+                                                    >
+                                                        R$
+                                                    </tspan>
+                                                </text>
+                                            )
+                                        }
+                                    }}
+                                />
+                            </Pie>
+                        </PieChart>
+                    </ChartContainer>
+                </CardContent>
+            </Card>
         </div>
     );
 }
