@@ -177,6 +177,7 @@ export function DialogTransaction({ type, trigger }: DialogTransactionProps) {
                             value={form.description}
                             onChange={(e) => setForm(prev => ({ ...prev, description: e.target.value }))}
                             rows={3}
+                            className="resize-none"
                         />
                     </div>
 
@@ -245,9 +246,9 @@ export function DialogTransaction({ type, trigger }: DialogTransactionProps) {
                                 ))}
                             </SelectContent>
                         </Select>
-                        <Link className="text-sm text-blue-600 hover:underline" href="/settings">
+                        <span className="">Se não encontrar uma categoria: <Link className="text-sm text-blue-600 hover:underline" href="/settings">
                             Criar uma categoria
-                        </Link>
+                        </Link></span>
                     </div>
 
                     {/* Submit Buttons */}

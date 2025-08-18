@@ -1,4 +1,4 @@
-import { FinanceDashboard } from "@/app/_components/FinanceDashboard";
+import { FinanceDashboard } from "@/app/(auth)/dashboard/_components/FinanceDashboard";
 
 
 export default function Dashboard() {

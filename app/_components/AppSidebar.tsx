@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar } from "./ui/sidebar";
 import { TrendingUp, PieChart, Settings } from "lucide-react";
 import Image from "next/image";
-import { DialogTransaction } from "./DialogTransaction";
+import { DialogTransaction } from "./DialogAddTransaction";
 
 const menuItems = [
     { title: "Dashboard", href: "/dashboard", icon: PieChart },
@@ -28,8 +28,8 @@ export function AppSidebar() {
                     <Image
                         src="/zenna.svg"
                         alt="Zenna Logo"
-                        width={150}
-                        height={150}
+                        width={100}
+                        height={100}
                     />
                     <span className="text-xs text-sidebar-foreground/60">Tranquilidade com sua grana</span>
                 </div>
