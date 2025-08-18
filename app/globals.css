@@ -16,6 +16,12 @@
   --color-sidebar-primary: var(--sidebar-primary);
   --color-sidebar-foreground: var(--sidebar-foreground);
   --color-sidebar: var(--sidebar);
+  --color-income: var(--income);
+  --color-income-light: var(--income-light);
+  --color-income-dark: var(--income-dark);
+  --color-expense: var(--expense);
+  --color-expense-light: var(--expense-light);
+  --color-expense-dark: var(--expense-dark);
   --color-chart-5: var(--chart-5);
   --color-chart-4: var(--chart-4);
   --color-chart-3: var(--chart-3);
@@ -76,6 +82,12 @@
   --sidebar-accent-foreground: oklch(0.205 0 0);
   --sidebar-border: oklch(0.922 0 0);
   --sidebar-ring: oklch(0.708 0 0);
+  --income: oklch(0.6 0.15 135);
+  --income-light: oklch(0.95 0.05 135);
+  --income-dark: oklch(0.4 0.2 135);
+  --expense: oklch(0.65 0.18 25);
+  --expense-light: oklch(0.95 0.05 25);
+  --expense-dark: oklch(0.45 0.2 25);
 }
 
 .dark {
@@ -110,12 +122,19 @@
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
+  --income: oklch(0.55 0.15 135);
+  --income-light: oklch(0.25 0.05 135);
+  --income-dark: oklch(0.7 0.2 135);
+  --expense: oklch(0.6 0.18 25);
+  --expense-light: oklch(0.25 0.05 25);
+  --expense-dark: oklch(0.75 0.2 25);
 }
 
 @layer base {
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
