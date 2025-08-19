@@ -14,6 +14,7 @@ import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { cn } from "../_lib/utils";
 import Link from "next/link";
+import { getCategoriesByType } from "../_types/categories";
 
 interface TransactionForm {
     amount: string;
@@ -27,23 +28,6 @@ interface DialogTransactionProps {
     trigger?: React.ReactNode;
 }
 
-// Categorias de exemplo - substitua pela sua fonte de dados
-const mockCategories = {
-    income: [
-        { id: '1', name: 'Salário', color: '#22c55e' },
-        { id: '2', name: 'Freelance', color: '#3b82f6' },
-        { id: '3', name: 'Investimentos', color: '#8b5cf6' },
-        { id: '4', name: 'Outros', color: '#6b7280' },
-    ],
-    expense: [
-        { id: '5', name: 'Alimentação', color: '#ef4444' },
-        { id: '6', name: 'Transporte', color: '#f59e0b' },
-        { id: '7', name: 'Moradia', color: '#06b6d4' },
-        { id: '8', name: 'Saúde', color: '#ec4899' },
-        { id: '9', name: 'Entretenimento', color: '#8b5cf6' },
-    ],
-};
-
 export function DialogAddTransaction({ type, trigger }: DialogTransactionProps) {
     const [open, setOpen] = useState(false);
     const [form, setForm] = useState<TransactionForm>({
@@ -55,7 +39,7 @@ export function DialogAddTransaction({ type, trigger }: DialogTransactionProps) 
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
     const isIncome = type === 'income';
-    const categories = mockCategories[type];
+    const categories = getCategoriesByType(type);
 
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
@@ -108,7 +92,7 @@ export function DialogAddTransaction({ type, trigger }: DialogTransactionProps) 
 
     const defaultTrigger = (
         <Button
-            className={`transition-all duration-300 ease-in-out rounded-lg w-max flex justify-start cursor-pointer
+            className={`transition-all duration-300 ease-in-out rounded-lg w-full flex justify-start cursor-pointer
                 ${isIncome
                     ? 'bg-green-50 dark:bg-green-900/20 text-green-700 dark:text-green-300 border border-green-200 dark:border-green-800 hover:bg-green-100 dark:hover:bg-green-900/40 hover:border-green-300 dark:hover:border-green-600  hover:shadow-md'
                     : 'bg-red-50 dark:bg-red-900/20 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800 hover:bg-red-100 dark:hover:bg-red-900/40 hover:border-red-300 dark:hover:border-red-600  hover:shadow-md'
@@ -233,12 +217,17 @@ export function DialogAddTransaction({ type, trigger }: DialogTransactionProps) 
                             <SelectContent>
                                 {categories.map((category) => (
                                     <SelectItem key={category.id} value={category.id}>
-                                        <div className="flex items-center gap-2">
-                                            <div
-                                                className="w-3 h-3 rounded-full"
-                                                style={{ backgroundColor: category.color }}
-                                            />
-                                            {category.name}
+                                        <div className="flex items-center gap-3 w-full">
+                                            <div className="flex items-center gap-2">
+                                                <span className="text-base">{category.icon}</span>
+                                                <div
+                                                    className="w-3 h-3 rounded-full"
+                                                    style={{ backgroundColor: category.color }}
+                                                />
+                                            </div>
+                                            <div className="flex-1">
+                                                <span className="font-medium">{category.name}</span>
+                                            </div>
                                         </div>
                                     </SelectItem>
                                 ))}

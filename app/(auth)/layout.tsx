@@ -5,15 +5,19 @@ import { SidebarProvider } from "../_components/ui/sidebar";
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
     return (
         <html lang="pt-BR">
-            <SidebarProvider>
-                <body>
+            <body>
+                <SidebarProvider>
                     <AppSidebar />
                     <main className="w-full">
                         <AppHeader />
-                        {children}
+
+                        <div className="p-8 ">
+                            {children}
+
+                        </div>
                     </main>
-                </body>
-            </SidebarProvider>
+                </SidebarProvider>
+            </body>
         </html>
     );
 }

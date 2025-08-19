@@ -29,7 +29,7 @@ export function DateFilter({
         <Card className="p-4 bg-gradient-card shadow-soft border-border">
             <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                    <Calendar className="w-5 h-5 text-accent" />
+                    <Calendar className="w-5 h-5 text-primary" />
                     <h3 className="font-semibold text-card-foreground">Período</h3>
                 </div>
 

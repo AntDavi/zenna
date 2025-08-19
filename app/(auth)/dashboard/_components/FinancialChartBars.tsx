@@ -42,7 +42,6 @@ export function FinancialChartBars() {
             </CardHeader>
             <CardContent>
 
-
                 {/* 📱 (2) MOBILE / COLUNA INTEIRA: gráfico HORIZONTAL (barras deitadas)
               - Mostrado por padrão; some em lg+ */}
                 <div className="hidden lg:block">
