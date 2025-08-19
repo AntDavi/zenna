@@ -233,7 +233,7 @@ export function DialogAddTransaction({ type, trigger }: DialogTransactionProps) 
                                 ))}
                             </SelectContent>
                         </Select>
-                        <span className="">Se não encontrar uma categoria: <Link className="text-sm text-blue-600 hover:underline" href="/settings">
+                        <span className="">Se não encontrar uma categoria: <Link className="text-sm text-blue-600 hover:underline" href="/settings" onClick={() => setOpen(false)}>
                             Criar uma categoria
                         </Link></span>
                     </div>
