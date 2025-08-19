@@ -3,7 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/app/_components/ui/card";
 import { TrendingUp } from "lucide-react";
 // 🔧 (1) IMPORT EXTRA: YAxis para o gráfico horizontal
-import { Bar, BarChart, CartesianGrid, XAxis, YAxis } from "recharts";
+import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Cell } from "recharts";
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/app/_components/ui/chart";
 
 // (sem mudanças) mock de dados
@@ -24,10 +24,15 @@ const chartData = [
 
 // (sem mudanças) config de cores/rótulos
 const chartConfig = {
-    income: { label: "Receita", color: "var(--chart-1)" },
-    expense: { label: "Despesa", color: "var(--chart-2)" },
-    balance: { label: "Saldo", color: "var(--chart-3)" },
+    income: { label: "Receita", color: "var(--income)" },
+    expense: { label: "Despesa", color: "var(--expense)" },
+    balance: { label: "Balanço", color: "var(--balance-positive)" },
 } satisfies ChartConfig
+
+// Função para retornar a cor baseada no valor do balanço
+const getBalanceColor = (balance: number) => {
+    return balance >= 0 ? "var(--color-balance-positive)" : "var(--color-balance-negative)";
+};
 
 export function FinancialChartBars() {
     return (
@@ -70,7 +75,11 @@ export function FinancialChartBars() {
                             />
                             <Bar dataKey="income" layout="vertical" fill="var(--color-income)" radius={5} />
                             <Bar dataKey="expense" layout="vertical" fill="var(--color-expense)" radius={5} />
-                            <Bar dataKey="balance" layout="vertical" fill="var(--color-balance)" radius={5} />
+                            <Bar dataKey="balance" layout="vertical" radius={5}>
+                                {chartData.map((entry, index) => (
+                                    <Cell key={`cell-${index}`} fill={getBalanceColor(entry.balance)} />
+                                ))}
+                            </Bar>
                         </BarChart>
                     </ChartContainer>
                 </div>
@@ -94,7 +103,11 @@ export function FinancialChartBars() {
                             />
                             <Bar dataKey="income" fill="var(--color-income)" radius={4} />
                             <Bar dataKey="expense" fill="var(--color-expense)" radius={4} />
-                            <Bar dataKey="balance" fill="var(--color-balance)" radius={4} />
+                            <Bar dataKey="balance" radius={4}>
+                                {chartData.map((entry, index) => (
+                                    <Cell key={`cell-${index}`} fill={getBalanceColor(entry.balance)} />
+                                ))}
+                            </Bar>
                         </BarChart>
                     </ChartContainer>
                 </div>

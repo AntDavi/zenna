@@ -3,7 +3,14 @@
 import { ColumnDef } from "@tanstack/react-table";
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
-import { ArrowUp, ArrowDown, Edit, Trash2 } from "lucide-react";
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuTrigger,
+    DropdownMenuSeparator
+} from "./ui/dropdown-menu";
+import { ArrowUp, ArrowDown, Edit, Trash2, MoreHorizontal } from "lucide-react";
 import { getCategoriesByType } from "../_types/categories";
 import { Transaction } from "../_types/transaction";
 
@@ -112,14 +119,43 @@ export const columns: ColumnDef<Transaction>[] = [
     {
         id: "actions",
         header: () => <div className="text-right">Ações</div>,
-        cell: () => (
-            <div className="flex items-center justify-end gap-1.5">
-                <Button variant="ghost" size="icon" aria-label="Editar">
-                    <Edit className="h-4 w-4" />
-                </Button>
-                <Button variant="ghost" size="icon" aria-label="Excluir">
-                    <Trash2 className="h-4 w-4" />
-                </Button>
+        cell: ({ row }) => (
+            <div className="flex items-center justify-end">
+                <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                        <Button
+                            variant="ghost"
+                            size="icon"
+                            className="h-8 w-8 hover:bg-accent"
+                            aria-label="Abrir menu de ações"
+                        >
+                            <MoreHorizontal className="h-4 w-4" />
+                        </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end" className="w-48">
+                        <DropdownMenuItem
+                            onClick={() => {
+                                // Implementar editar
+                                console.log('Editar transação:', row.original);
+                            }}
+                            className="cursor-pointer"
+                        >
+                            <Edit className="mr-2 h-4 w-4" />
+                            Editar
+                        </DropdownMenuItem>
+                        <DropdownMenuSeparator />
+                        <DropdownMenuItem
+                            onClick={() => {
+                                // Implementar excluir
+                                console.log('Excluir transação:', row.original);
+                            }}
+                            className="cursor-pointer text-destructive focus:text-destructive"
+                        >
+                            <Trash2 className="mr-2 h-4 w-4" />
+                            Excluir
+                        </DropdownMenuItem>
+                    </DropdownMenuContent>
+                </DropdownMenu>
             </div>
         ),
         enableHiding: false,

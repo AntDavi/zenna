@@ -3,6 +3,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { getCategoriesByType, getAllCategories } from "../_types/categories";
+import { Button } from "./ui/button";
+import { PlusCircle } from "lucide-react";
 
 export function CategoriesShowcase() {
     const incomeCategories = getCategoriesByType('income');
@@ -11,96 +13,106 @@ export function CategoriesShowcase() {
 
     return (
         <div className="space-y-6 p-6">
-            <div className="text-center">
-                <h1 className="text-3xl font-bold">Showcase das Categorias</h1>
-                <p className="text-muted-foreground mt-2">
-                    Total de {allCategories.length} categorias disponíveis
-                </p>
+            <div className="w-full flex items-center justify-between mb-4">
+                <div className="text-start">
+                    <h1 className="text-3xl font-bold">Categorias</h1>
+                    <p className="text-muted-foreground mt-2">
+                        Total de {allCategories.length} categorias disponíveis
+                    </p>
+                </div>
+
+                <Button>
+                    <PlusCircle />
+                    Adicionar Categoria
+                </Button>
             </div>
 
-            {/* Categorias de Receita */}
-            <Card>
-                <CardHeader>
-                    <CardTitle className="text-xl text-green-600 flex items-center gap-2">
-                        💰 Categorias de Receita ({incomeCategories.length})
-                    </CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {incomeCategories.map((category) => (
-                            <div
-                                key={category.id}
-                                className="p-4 rounded-lg border bg-green-50 dark:bg-green-950/30 hover:shadow-md transition-shadow"
-                            >
-                                <div className="flex items-center gap-3 mb-2">
-                                    <span className="text-2xl">{category.icon}</span>
-                                    <div className="flex items-center gap-2">
-                                        <div
-                                            className="w-4 h-4 rounded-full"
-                                            style={{ backgroundColor: category.color }}
-                                        />
-                                        <h3 className="font-semibold">{category.name}</h3>
-                                    </div>
-                                </div>
-                                {category.description && (
-                                    <p className="text-sm text-muted-foreground">
-                                        {category.description}
-                                    </p>
-                                )}
-                                <Badge
-                                    variant="secondary"
-                                    className="mt-2 text-xs"
-                                    style={{ backgroundColor: `${category.color}20`, color: category.color }}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Categorias de Receita */}
+                <Card>
+                    <CardHeader>
+                        <CardTitle className="text-xl text-green-600 flex items-center gap-2">
+                            💰 Categorias de Receita ({incomeCategories.length})
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {incomeCategories.map((category) => (
+                                <div
+                                    key={category.id}
+                                    className="p-4 rounded-lg border bg-green-50 dark:bg-green-950/30 hover:shadow-md transition-shadow"
                                 >
-                                    {category.color}
-                                </Badge>
-                            </div>
-                        ))}
-                    </div>
-                </CardContent>
-            </Card>
+                                    <div className="flex items-center gap-3 mb-2">
+                                        <span className="text-2xl">{category.icon}</span>
+                                        <div className="flex items-center gap-2">
+                                            <div
+                                                className="w-4 h-4 rounded-full"
+                                                style={{ backgroundColor: category.color }}
+                                            />
+                                            <h3 className="font-semibold">{category.name}</h3>
+                                        </div>
+                                    </div>
+                                    {category.description && (
+                                        <p className="text-sm text-muted-foreground">
+                                            {category.description}
+                                        </p>
+                                    )}
+                                    <Badge
+                                        variant="secondary"
+                                        className="mt-2 text-xs"
+                                        style={{ backgroundColor: `${category.color}20`, color: category.color }}
+                                    >
+                                        {category.color}
+                                    </Badge>
+                                </div>
+                            ))}
+                        </div>
+                    </CardContent>
+                </Card>
 
-            {/* Categorias de Despesa */}
-            <Card>
-                <CardHeader>
-                    <CardTitle className="text-xl text-red-600 flex items-center gap-2">
-                        💸 Categorias de Despesa ({expenseCategories.length})
-                    </CardTitle>
-                </CardHeader>
-                <CardContent>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {expenseCategories.map((category) => (
-                            <div
-                                key={category.id}
-                                className="p-4 rounded-lg border bg-red-50 dark:bg-red-950/30 hover:shadow-md transition-shadow"
-                            >
-                                <div className="flex items-center gap-3 mb-2">
-                                    <span className="text-2xl">{category.icon}</span>
-                                    <div className="flex items-center gap-2">
-                                        <div
-                                            className="w-4 h-4 rounded-full"
-                                            style={{ backgroundColor: category.color }}
-                                        />
-                                        <h3 className="font-semibold">{category.name}</h3>
-                                    </div>
-                                </div>
-                                {category.description && (
-                                    <p className="text-sm text-muted-foreground">
-                                        {category.description}
-                                    </p>
-                                )}
-                                <Badge
-                                    variant="secondary"
-                                    className="mt-2 text-xs"
-                                    style={{ backgroundColor: `${category.color}20`, color: category.color }}
+                {/* Categorias de Despesa */}
+                <Card>
+                    <CardHeader>
+                        <CardTitle className="text-xl text-red-600 flex items-center gap-2">
+                            💸 Categorias de Despesa ({expenseCategories.length})
+                        </CardTitle>
+                    </CardHeader>
+                    <CardContent>
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {expenseCategories.map((category) => (
+                                <div
+                                    key={category.id}
+                                    className="p-4 rounded-lg border bg-red-50 dark:bg-red-950/30 hover:shadow-md transition-shadow"
                                 >
-                                    {category.color}
-                                </Badge>
-                            </div>
-                        ))}
-                    </div>
-                </CardContent>
-            </Card>
+                                    <div className="flex items-center gap-3 mb-2">
+                                        <span className="text-2xl">{category.icon}</span>
+                                        <div className="flex items-center gap-2">
+                                            <div
+                                                className="w-4 h-4 rounded-full"
+                                                style={{ backgroundColor: category.color }}
+                                            />
+                                            <h3 className="font-semibold">{category.name}</h3>
+                                        </div>
+                                    </div>
+                                    {category.description && (
+                                        <p className="text-sm text-muted-foreground">
+                                            {category.description}
+                                        </p>
+                                    )}
+                                    <Badge
+                                        variant="secondary"
+                                        className="mt-2 text-xs"
+                                        style={{ backgroundColor: `${category.color}20`, color: category.color }}
+                                    >
+                                        {category.color}
+                                    </Badge>
+                                </div>
+                            ))}
+                        </div>
+                    </CardContent>
+                </Card>
+            </div>
+
 
             {/* Estatísticas */}
             <Card>
