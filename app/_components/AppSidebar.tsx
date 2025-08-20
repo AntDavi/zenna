@@ -6,13 +6,7 @@ import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarGrou
 import { TrendingUp, PieChart, Settings, Shield } from "lucide-react";
 import Image from "next/image";
 import { DialogAddTransaction } from "./DialogAddTransaction";
-
-const menuItems = [
-    { title: "Dashboard", href: "/dashboard", icon: PieChart },
-    { title: "Transações", href: "/transactions", icon: TrendingUp },
-    { title: "Patrimonio", href: "/patrimony", icon: Shield },
-    { title: "Configurações", href: "/settings", icon: Settings },
-]
+import { menuItems } from "../_types/links";
 
 export function AppSidebar() {
     const { state } = useSidebar();

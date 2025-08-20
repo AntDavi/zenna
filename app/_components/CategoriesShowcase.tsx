@@ -3,8 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Badge } from "./ui/badge";
 import { getCategoriesByType, getAllCategories } from "../_types/categories";
-import { Button } from "./ui/button";
-import { PlusCircle } from "lucide-react";
+import { DialogAddCategory } from "./DialogAddCategory";
 
 export function CategoriesShowcase() {
     const incomeCategories = getCategoriesByType('income');
@@ -21,10 +20,7 @@ export function CategoriesShowcase() {
                     </p>
                 </div>
 
-                <Button>
-                    <PlusCircle />
-                    Adicionar Categoria
-                </Button>
+                <DialogAddCategory />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

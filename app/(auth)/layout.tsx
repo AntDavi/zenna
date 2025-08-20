@@ -4,7 +4,7 @@ import { SidebarProvider } from "../_components/ui/sidebar";
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
     return (
-        <html lang="pt-BR">
+        <html lang="pt-br">
             <body>
                 <SidebarProvider>
                     <AppSidebar />
