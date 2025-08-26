@@ -2,11 +2,9 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/app/_components/ui/card";
 import { TrendingUp } from "lucide-react";
-// 🔧 (1) IMPORT EXTRA: YAxis para o gráfico horizontal
 import { Bar, BarChart, CartesianGrid, XAxis, YAxis, Cell } from "recharts";
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "@/app/_components/ui/chart";
 
-// (sem mudanças) mock de dados
 const chartData = [
     { month: "Janeiro", expense: 186, income: 80, balance: 106 },
     { month: "Fevereiro", expense: 305, income: 200, balance: -105 },
@@ -22,7 +20,6 @@ const chartData = [
     { month: "Dezembro", expense: 300, income: 400, balance: 100 }
 ]
 
-// (sem mudanças) config de cores/rótulos
 const chartConfig = {
     income: { label: "Receita", color: "var(--income)" },
     expense: { label: "Despesa", color: "var(--expense)" },
