@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <main className="">
       {/* Header */}
-      <header className="p-4 border-b shadow-md">
+      <header className="p-4 border-b shadow-md fixed top-0 left-0 right-0 z-10">
         <div className="container mx-auto flex items-center justify-between">
           <Image src="zenna.svg" alt="Zenna Logo" width={100} height={100} />
 
@@ -29,17 +29,8 @@ export default function Home() {
         </div>
       </header>
       {/* Hero Section */}
-      <section className="relative flex items-center justify-center overflow-hidden">
-        {/* Background decorative elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute top-1/4 -left-20 w-80 h-80 bg-primary/5 rounded-full blur-3xl animate-float"></div>
-          <div
-            className="absolute bottom-1/4 -right-20 w-96 h-96 bg-primary-light/5 rounded-full blur-3xl animate-float"
-            style={{ animationDelay: "2s" }}
-          ></div>
-        </div>
-
-        <div className="container mx-auto px-4 py-20 relative z-10">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        <div className="container mx-auto py-20 relative z-10">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Content */}
             <div className="space-y-8 animate-fade-in">
