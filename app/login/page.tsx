@@ -1,3 +1,4 @@
+"use client";
 import { ArrowLeft, Lock, Mail, User } from "lucide-react";
 import { Label } from "../_components/ui/label";
 import { Input } from "../_components/ui/input";
@@ -17,9 +18,21 @@ import {
 } from "../_components/ui/tabs";
 import Image from "next/image";
 import Link from "next/link";
-import { login, signup } from "./actions";
+import { useFormState } from "react-dom";
+import { login, signup, type ActionState } from "./actions";
+
+const DEFAULT_STATE: ActionState = {};
 
 export default function Login() {
+  // hook up server action state for inline validation/errors
+  const [signinState, signinAction] = useFormState<ActionState, FormData>(
+    login,
+    DEFAULT_STATE
+  );
+  const [signupState, signupAction] = useFormState<ActionState, FormData>(
+    signup,
+    DEFAULT_STATE
+  );
   return (
     <div className="min-h-screen bg-gradient-to-br from-background via-muted/30 to-primary/5 flex items-center justify-center p-4">
       <Link href="/" className="absolute top-5 left-5 flex items-center gap-2">
@@ -52,7 +65,7 @@ export default function Login() {
               </TabsList>
 
               <TabsContent value="signin">
-                <form className="space-y-4">
+                <form className="space-y-4" action={signinAction}>
                   <div className="space-y-2">
                     <Label htmlFor="email">Email</Label>
                     <div className="relative">
@@ -65,6 +78,11 @@ export default function Login() {
                         className="pl-10"
                         required
                       />
+                      {signinState?.fieldErrors?.email && (
+                        <p className="text-xs text-destructive mt-1">
+                          {signinState.fieldErrors.email}
+                        </p>
+                      )}
                     </div>
                   </div>
                   <div className="space-y-2">
@@ -79,21 +97,26 @@ export default function Login() {
                         className="pl-10"
                         required
                       />
+                      {signinState?.fieldErrors?.password && (
+                        <p className="text-xs text-destructive mt-1">
+                          {signinState.fieldErrors.password}
+                        </p>
+                      )}
                     </div>
                   </div>
-                  <Button
-                    type="submit"
-                    className="w-full"
-                    size="lg"
-                    formAction={login}
-                  >
+                  {signinState?.message && (
+                    <p className="text-xs text-destructive">
+                      {signinState.message}
+                    </p>
+                  )}
+                  <Button type="submit" className="w-full" size="lg">
                     Entrar
                   </Button>
                 </form>
               </TabsContent>
 
               <TabsContent value="signup">
-                <form className="space-y-4">
+                <form className="space-y-4" action={signupAction}>
                   <div className="space-y-2">
                     <Label htmlFor="name">Nome</Label>
                     <div className="relative">
@@ -106,6 +129,11 @@ export default function Login() {
                         className="pl-10"
                         required
                       />
+                      {signupState?.fieldErrors?.name && (
+                        <p className="text-xs text-destructive mt-1">
+                          {signupState.fieldErrors.name}
+                        </p>
+                      )}
                     </div>
                   </div>
                   <div className="space-y-2">
@@ -120,6 +148,11 @@ export default function Login() {
                         className="pl-10"
                         required
                       />
+                      {signupState?.fieldErrors?.email && (
+                        <p className="text-xs text-destructive mt-1">
+                          {signupState.fieldErrors.email}
+                        </p>
+                      )}
                     </div>
                   </div>
                   <div className="space-y-2">
@@ -134,14 +167,19 @@ export default function Login() {
                         className="pl-10"
                         required
                       />
+                      {signupState?.fieldErrors?.password && (
+                        <p className="text-xs text-destructive mt-1">
+                          {signupState.fieldErrors.password}
+                        </p>
+                      )}
                     </div>
                   </div>
-                  <Button
-                    type="submit"
-                    className="w-full"
-                    size="lg"
-                    formAction={signup}
-                  >
+                  {signupState?.message && (
+                    <p className="text-xs text-destructive">
+                      {signupState.message}
+                    </p>
+                  )}
+                  <Button type="submit" className="w-full" size="lg">
                     Criar conta
                   </Button>
                 </form>

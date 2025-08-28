@@ -1,46 +1,110 @@
 "use server";
 
-import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-
+import { z } from "zod";
 import { createClient } from "@/utils/supabase/server";
 
-export async function login(formData: FormData) {
+export type ActionState = {
+  ok?: boolean;
+  message?: string;
+  fieldErrors?: Partial<Record<"email" | "password" | "name", string>>;
+};
+
+const SigninSchema = z.object({
+  email: z.string().min(1, "Informe um email").email("Email inválido"),
+  password: z
+    .string()
+    .min(1, "Informe uma senha")
+    .min(6, "Senha deve ter pelo menos 6 caracteres"),
+});
+
+const SignupSchema = z.object({
+  name: z.string().min(1, "Informe seu nome").min(2, "Nome muito curto"),
+  email: z.string().min(1, "Informe um email").email("Email inválido"),
+  password: z
+    .string()
+    .min(1, "Informe uma senha")
+    .min(6, "Senha deve ter pelo menos 6 caracteres"),
+});
+
+export async function login(
+  _prevState: ActionState,
+  formData: FormData
+): Promise<ActionState> {
   const supabase = await createClient();
 
-  // type-casting here for convenience
-  // in practice, you should validate your inputs
-  const data = {
-    email: formData.get("email") as string,
-    password: formData.get("password") as string,
-  };
-
-  const { error } = await supabase.auth.signInWithPassword(data);
-
-  if (error) {
-    redirect("/error");
+  const parsed = SigninSchema.safeParse({
+    email: formData.get("email"),
+    password: formData.get("password"),
+  });
+  if (!parsed.success) {
+    const fe = parsed.error.flatten().fieldErrors;
+    return {
+      ok: false,
+      fieldErrors: {
+        email: fe.email?.[0],
+        password: fe.password?.[0],
+      },
+    };
   }
 
-  revalidatePath("/dashboard", "layout");
+  const { error } = await supabase.auth.signInWithPassword(parsed.data);
+  if (error) {
+    return { ok: false, message: error.message };
+  }
+
   redirect("/dashboard");
+  // Unreachable, but satisfies TypeScript return type
+  // if redirect is mocked during tests.
+  return { ok: true };
 }
 
-export async function signup(formData: FormData) {
+export async function signup(
+  _prevState: ActionState,
+  formData: FormData
+): Promise<ActionState> {
   const supabase = await createClient();
 
-  // type-casting here for convenience
-  // in practice, you should validate your inputs
-  const data = {
-    email: formData.get("email") as string,
-    password: formData.get("password") as string,
-  };
-
-  const { error } = await supabase.auth.signUp(data);
-
-  if (error) {
-    redirect("/error");
+  const parsed = SignupSchema.safeParse({
+    name: formData.get("name"),
+    email: formData.get("email"),
+    password: formData.get("password"),
+  });
+  if (!parsed.success) {
+    const fe = parsed.error.flatten().fieldErrors;
+    return {
+      ok: false,
+      fieldErrors: {
+        name: fe.name?.[0],
+        email: fe.email?.[0],
+        password: fe.password?.[0],
+      },
+    };
   }
 
-  revalidatePath("/dashboard", "layout");
+  const { name, email, password } = parsed.data;
+
+  const { data, error } = await supabase.auth.signUp({
+    email,
+    password,
+    options: {
+      data: { name },
+    },
+  });
+
+  if (error) {
+    return { ok: false, message: error.message };
+  }
+
+  // If email confirmation is enabled, data.session will be null
+  if (!data.session) {
+    redirect(
+      `/auth/check-email?email=${encodeURIComponent(
+        email
+      )}&next=${encodeURIComponent("/dashboard")}`
+    );
+  }
+
   redirect("/dashboard");
+  return { ok: true };
 }
