@@ -1,4 +1,7 @@
-import { MenuIcon, MoonIcon, Plus } from "lucide-react";
+"use client";
+
+import { MenuIcon, MoonIcon, SunIcon, Plus } from "lucide-react";
+import { useTheme } from "next-themes";
 import { Button } from "./ui/button";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import {
@@ -14,6 +17,13 @@ import { menuItems } from "../_types/links";
 import Link from "next/link";
 
 export function AppHeader() {
+  const { setTheme } = useTheme();
+
+  const { theme: themeFromHook, resolvedTheme } = useTheme();
+  const current =
+    (themeFromHook === "system" ? resolvedTheme : themeFromHook) ?? "light";
+  const ThemeIcon = current === "dark" ? SunIcon : MoonIcon;
+
   return (
     <header className="sticky top-0 z-40 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border shadow-md ">
       <div className="flex h-16 items-center px-8 md:px-8 justify-between md:justify-end">
@@ -83,9 +93,11 @@ export function AppHeader() {
           {/* Theme Toggle */}
           <Button
             size="icon"
-            className="h-9 w-9 hover:bg-blue-500 bg-transparent text-muted-foreground transition-all hover:text-background"
+            className="h-9 w-9 bg-transparent text-muted-foreground transition-all hover:text-background"
+            onClick={() => setTheme(current === "dark" ? "light" : "dark")}
+            aria-label="Alternar tema"
           >
-            <MoonIcon className="h-4 w-4 red" />
+            <ThemeIcon className="h-4 w-4" />
             <span className="sr-only">Alternar tema</span>
           </Button>
 
