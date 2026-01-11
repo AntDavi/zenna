@@ -5,33 +5,10 @@ import { ColumnDef } from "@tanstack/react-table";
 import TransactionTypeBadge from "../_components/type-badge";
 import { Button } from "@/app/_components/ui/button";
 import { EditIcon, TrashIcon } from "lucide-react";
-
-export const TRANSACTION_CATEGORY_LABEL = {
-  HOUSING: "Moradia",
-  TRANSPORTATION: "Transporte",
-  FOOD: "Alimentação",
-  ENTERTAINMENT: "Entretenimento",
-  HEALTH: "Saúde",
-  UTILITY: "Utilidade",
-  SALARY: "Salário",
-  EDUCATION: "Educação",
-  SHARE: "Ações",
-  ELETRICITY: "Eletricidade",
-  WATER: "Água",
-  INTERNET: "Internet",
-  GROCERY: "Supermercado",
-  LEADING: "Lazer",
-  OTHERS: "Outros",
-};
-
-export const PAYMENT_METHOD_LABEL = {
-  CREDIT_CARD: "Cartão de Crédito",
-  DEBIT_CARD: "Cartão de Débito",
-  CASH: "Dinheiro",
-  BANK_TRANSFER: "Transferência Bancária",
-  PIX: "Pix",
-  OTHERS: "Outros",
-};
+import {
+  TRANSACTION_CATEGORY_LABELS,
+  TRANSACTION_PAYMENT_METHOD_LABELS,
+} from "@/app/_constants/transactions";
 
 export const transactionColumns: ColumnDef<Transaction>[] = [
   {
@@ -49,13 +26,13 @@ export const transactionColumns: ColumnDef<Transaction>[] = [
     accessorKey: "category",
     header: "Categoria",
     cell: ({ row: { original: transaction } }) =>
-      TRANSACTION_CATEGORY_LABEL[transaction.category],
+      TRANSACTION_CATEGORY_LABELS[transaction.category],
   },
   {
     accessorKey: "paymentMethod",
     header: "Método de Pagamento",
     cell: ({ row: { original: transaction } }) =>
-      PAYMENT_METHOD_LABEL[transaction.paymentMethod],
+      TRANSACTION_PAYMENT_METHOD_LABELS[transaction.paymentMethod],
   },
   {
     accessorKey: "date",
