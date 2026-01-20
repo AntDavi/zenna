@@ -61,9 +61,15 @@ const formSchema = z.object({
   amount: z.number().positive({
     message: "O valor deve ser maior que zero",
   }),
-  type: z.nativeEnum(TransactionType),
-  category: z.nativeEnum(TransactionCategory),
-  paymentMethod: z.nativeEnum(TransactionPaymentMethod),
+  type: z.nativeEnum(TransactionType, {
+    message: "O tipo é obrigatório",
+  }),
+  category: z.nativeEnum(TransactionCategory, {
+    message: "A categoria é obrigatória",
+  }),
+  paymentMethod: z.nativeEnum(TransactionPaymentMethod, {
+    message: "O método de pagamento é obrigatório",
+  }),
   date: z.date({
     message: "A data da transação é obrigatória",
   }),
@@ -94,6 +100,7 @@ const UpsertTransactionDialog = ({
       await upsertTransaction({ ...data, id: transactionId });
       setIsOpen(false);
       form.reset();
+      console.log("Transaction added/updated successfully", data);
     } catch (error) {
       console.error("Failed to add transaction:", error);
     }
