@@ -7,6 +7,7 @@ interface SummaryCardProps {
   amount: number;
   icon: ReactNode;
   size?: "small" | "large";
+  type?: "DEPOSITY" | "EXPENSE" | "INVESTMENT" | "BALANCE";
 }
 
 const SummaryCard = ({
@@ -14,11 +15,16 @@ const SummaryCard = ({
   amount,
   icon,
   size = "small",
+  type = "BALANCE",
 }: SummaryCardProps) => {
   return (
     <Card>
       <CardHeader className="flex-row items-center gap-2">
-        {icon}
+        <div
+          className={`${type === "DEPOSITY" ? "bg-green-50" : type === "EXPENSE" ? "bg-red-50" : type === "INVESTMENT" ? "bg-muted-foreground/50" : "bg-none"} w-fit rounded-md p-1`}
+        >
+          {icon}
+        </div>
         <p
           className={`text-muted-foreground ${size === "small" ? "text-muted-foreground" : "text-white opacity-70"}`}
         >

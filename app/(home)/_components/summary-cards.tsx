@@ -8,11 +8,22 @@ import {
 import SummaryCard from "./summary-card";
 import { db } from "@/app/_lib/prisma";
 
-const SummaryCards = async () => {
+interface SummaryCards {
+  month: string;
+}
+
+const SummaryCards = async ({ month }: SummaryCards) => {
+  const where = {
+    date: {
+      gte: new Date(new Date().getFullYear(), Number(month) - 1, 1),
+      lt: new Date(new Date().getFullYear(), Number(month), 1),
+    },
+  };
+
   const depositsTotal = Number(
     (
       await db.transaction.aggregate({
-        where: { type: "DEPOSITY" },
+        where: { ...where, type: "DEPOSITY" },
         _sum: { amount: true },
       })
     )._sum?.amount
@@ -21,7 +32,7 @@ const SummaryCards = async () => {
   const expensesTotal = Number(
     (
       await db.transaction.aggregate({
-        where: { type: "EXPENSE" },
+        where: { ...where, type: "EXPENSE" },
         _sum: { amount: true },
       })
     )._sum?.amount
@@ -30,7 +41,7 @@ const SummaryCards = async () => {
   const investmentsTotal = Number(
     (
       await db.transaction.aggregate({
-        where: { type: "INVESTMENT" },
+        where: { ...where, type: "INVESTMENT" },
         _sum: { amount: true },
       })
     )._sum?.amount
@@ -54,16 +65,19 @@ const SummaryCards = async () => {
           title="Receita"
           amount={depositsTotal}
           icon={<TrendingUpIcon size={16} className="text-primary" />}
+          type="DEPOSITY"
         />
         <SummaryCard
           title="Despesas"
           amount={expensesTotal}
           icon={<TrendingDownIcon size={16} className="text-red-500" />}
+          type="EXPENSE"
         />
         <SummaryCard
           title="Investimentos"
           amount={investmentsTotal}
           icon={<PiggyBankIcon size={16} />}
+          type="INVESTMENT"
         />
       </div>
     </div>
