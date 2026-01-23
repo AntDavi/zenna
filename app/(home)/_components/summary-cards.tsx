@@ -10,45 +10,19 @@ import { db } from "@/app/_lib/prisma";
 
 interface SummaryCards {
   month: string;
+  balance: number;
+  depositsTotal: number;
+  expensesTotal: number;
+  investmentsTotal: number;
 }
 
-const SummaryCards = async ({ month }: SummaryCards) => {
-  const where = {
-    date: {
-      gte: new Date(new Date().getFullYear(), Number(month) - 1, 1),
-      lt: new Date(new Date().getFullYear(), Number(month), 1),
-    },
-  };
-
-  const depositsTotal = Number(
-    (
-      await db.transaction.aggregate({
-        where: { ...where, type: "DEPOSITY" },
-        _sum: { amount: true },
-      })
-    )._sum?.amount
-  );
-
-  const expensesTotal = Number(
-    (
-      await db.transaction.aggregate({
-        where: { ...where, type: "EXPENSE" },
-        _sum: { amount: true },
-      })
-    )._sum?.amount
-  );
-
-  const investmentsTotal = Number(
-    (
-      await db.transaction.aggregate({
-        where: { ...where, type: "INVESTMENT" },
-        _sum: { amount: true },
-      })
-    )._sum?.amount
-  );
-
-  const balance = depositsTotal - expensesTotal - investmentsTotal;
-
+const SummaryCards = async ({
+  month,
+  balance,
+  depositsTotal,
+  expensesTotal,
+  investmentsTotal,
+}: SummaryCards) => {
   return (
     <div className="space-y-6">
       {/* Primeiro card */}

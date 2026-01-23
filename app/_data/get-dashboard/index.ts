@@ -1,0 +1,70 @@
+import { db } from "@/app/_lib/prisma";
+import { TransactionType } from "@/app/generated/prisma/enums";
+import { TransactionPercentagePerType } from "./types";
+
+export const getDashboard = async ({ month }: { month: string }) => {
+  const where = {
+    date: {
+      gte: new Date(new Date().getFullYear(), Number(month) - 1, 1),
+      lt: new Date(new Date().getFullYear(), Number(month), 1),
+    },
+  };
+
+  const depositsTotal = Number(
+    (
+      await db.transaction.aggregate({
+        where: { ...where, type: "DEPOSITY" },
+        _sum: { amount: true },
+      })
+    )._sum?.amount
+  );
+
+  const expensesTotal = Number(
+    (
+      await db.transaction.aggregate({
+        where: { ...where, type: "EXPENSE" },
+        _sum: { amount: true },
+      })
+    )._sum?.amount
+  );
+
+  const investmentsTotal = Number(
+    (
+      await db.transaction.aggregate({
+        where: { ...where, type: "INVESTMENT" },
+        _sum: { amount: true },
+      })
+    )._sum?.amount
+  );
+
+  const balance = depositsTotal - expensesTotal - investmentsTotal;
+
+  const transactionsTotal = Number(
+    (
+      await db.transaction.aggregate({
+        where,
+        _sum: { amount: true },
+      })
+    )._sum.amount
+  );
+
+  const typesPercentage: TransactionPercentagePerType = {
+    [TransactionType.DEPOSITY]: Math.round(
+      (Number(depositsTotal || 0) / Number(transactionsTotal)) * 100
+    ),
+    [TransactionType.EXPENSE]: Math.round(
+      (Number(expensesTotal || 0) / Number(transactionsTotal)) * 100
+    ),
+    [TransactionType.INVESTMENT]: Math.round(
+      (Number(investmentsTotal || 0) / Number(transactionsTotal)) * 100
+    ),
+  };
+
+  return {
+    balance,
+    depositsTotal,
+    expensesTotal,
+    investmentsTotal,
+    typesPercentage,
+  };
+};

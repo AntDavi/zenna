@@ -18,7 +18,7 @@ const SummaryCard = ({
   type = "BALANCE",
 }: SummaryCardProps) => {
   return (
-    <Card>
+    <Card className={`${size === "large" ? "bg-white/5" : ""}`}>
       <CardHeader className="flex-row items-center gap-2">
         <div
           className={`${type === "DEPOSITY" ? "bg-green-50" : type === "EXPENSE" ? "bg-red-50" : type === "INVESTMENT" ? "bg-muted-foreground/50" : "bg-none"} w-fit rounded-md p-1`}
