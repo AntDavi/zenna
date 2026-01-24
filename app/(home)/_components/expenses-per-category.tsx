@@ -17,7 +17,7 @@ const ExpensesPerCategory = ({
   expensesPerCategory,
 }: ExpensesPerCategoryProps) => {
   return (
-    <Card className="col-span-2 h-full rounded-md">
+    <Card className="col-span-2 h-full rounded-lg">
       <CardHeader>
         <CardTitle className="font-bold">Gastos por Categoria</CardTitle>
       </CardHeader>
